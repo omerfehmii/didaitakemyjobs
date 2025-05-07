@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="color-scheme" content="dark" />
+    <title>AI İşimi Aldı mı?</title>
+    <style>
+      /* Bu stiller doğrudan HTML içinde olduğu için daha önce uygulanır */
+      input, textarea, select {
+        background-color: #000 !important;
+        color: #fff !important;
+        -webkit-text-fill-color: #fff !important;
+      }
+      input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0 30px #000 inset !important;
+        -webkit-text-fill-color: #fff !important;
+      }
+      /* Input focus stilini özelleştir */
+      input:focus {
+        outline: none !important;
+        border-color: #ffffff !important;
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2) !important;
+      }
+      /* Butonları hariç tut */
+      button.submit-button {
+        background-color: #ff0000 !important;
+        color: #fff !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

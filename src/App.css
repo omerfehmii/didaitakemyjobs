@@ -1,0 +1,275 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+/* Temel stiller */
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Global stil sıfırlama - tüm input'lar için */
+input,
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="url"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="week"],
+input[type="time"],
+input[type="color"] {
+  background-color: #000 !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+}
+
+/* Özellikle job-input için ek stil kuralları */
+.job-input {
+  background-color: #000 !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  border-color: #222 !important;
+}
+
+.job-input:focus,
+.job-input:hover,
+.job-input:active {
+  background-color: #000 !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  border-color: #3B82F6 !important;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3) !important;
+}
+
+.job-input:disabled {
+  background-color: #000 !important;
+  color: #555 !important;
+  -webkit-text-fill-color: #555 !important;
+  opacity: 0.8 !important;
+}
+
+.job-input::placeholder {
+  color: #555 !important;
+  opacity: 1 !important;
+}
+
+/* Webkit ve Mozilla için özel stil devre dışı bırakma */
+.job-input::-webkit-input-placeholder { color: #555 !important; }
+.job-input::-moz-placeholder { color: #555 !important; }
+.job-input:-ms-input-placeholder { color: #555 !important; }
+.job-input::-ms-input-placeholder { color: #555 !important; }
+
+/* Autofill durumları için ek kontroller */
+.job-input:-webkit-autofill,
+.job-input:-webkit-autofill:hover,
+.job-input:-webkit-autofill:focus,
+.job-input:-webkit-autofill:active {
+  -webkit-text-fill-color: #fff !important;
+  -webkit-box-shadow: 0 0 0 30px #000 inset !important;
+  background-color: #000 !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Animasyonlar */
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #333;
+  border-bottom-color: #3B82F6;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Buton stilleri - geliştirilmiş tasarım */
+.submit-button {
+  background-color: #ff0000 !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 10px 20px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  height: 40px !important;
+  font-size: 15px !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
+  transition: all 0.2s ease-in-out !important;
+  box-shadow: 0 4px 6px rgba(255, 0, 0, 0.25) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.submit-button:hover {
+  background-color: #e00000 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 10px rgba(255, 0, 0, 0.3) !important;
+}
+
+.submit-button:active {
+  transform: translateY(1px) !important;
+  box-shadow: 0 2px 4px rgba(255, 0, 0, 0.2) !important;
+}
+
+.submit-button::before {
+  content: "" !important;
+  position: absolute !important;
+  top: -50% !important;
+  left: -50% !important;
+  width: 200% !important;
+  height: 200% !important;
+  background: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 100%
+  ) !important;
+  transform: rotate(45deg) !important;
+  z-index: 1 !important;
+  transition: all 0.5s !important;
+  opacity: 0 !important;
+}
+
+.submit-button:hover::before {
+  animation: shine 1.5s ease-out !important;
+}
+
+.submit-button:disabled {
+  opacity: 0.6 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+@keyframes shine {
+  0% {
+    opacity: 0;
+    left: -50%;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    left: 150%;
+  }
+}
+
+/* Input stilleri - daha güçlü seçiciler */
+input.job-input,
+input.job-input:focus,
+input.job-input:hover,
+input.job-input:active,
+input.job-input:disabled,
+input[type="text"].job-input {
+  background-color: #000 !important;
+  color: #fff !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  background-image: none !important;
+  caret-color: #ffffff !important; /* İmleç rengini beyaz yapıyoruz */
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Webkit tarayıcılar için otomatik stil devre dışı bırakma */
+input.job-input::-webkit-inner-spin-button,
+input.job-input::-webkit-outer-spin-button,
+input.job-input::-webkit-search-cancel-button {
+  -webkit-appearance: none !important;
+  margin: 0 !important;
+}
+
+input.job-input:focus {
+  outline: none !important;
+  border-color: #ffffff !important; /* Mavi yerine beyaz dış çizgi */
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2) !important; /* Gölgeyi de beyaz yap */
+}
+
+input.job-input::placeholder {
+  color: #555 !important;
+}
