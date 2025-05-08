@@ -5,7 +5,7 @@ export function ResponseCard({ response, isLoading }) {
   const [displayedText, setDisplayedText] = useState('');
   const [typingIndex, setTypingIndex] = useState(0);
   
-  // Yanıt değiştiğinde daktilo efektini başlat
+  // Start typing effect when response changes
   useEffect(() => {
     if (response && !isLoading) {
       setDisplayedText('');
@@ -14,14 +14,14 @@ export function ResponseCard({ response, isLoading }) {
     }
   }, [response, isLoading]);
   
-  // Daktilo efekti
+  // Typing effect
   useEffect(() => {
     if (isTyping && response) {
       if (typingIndex < response.length) {
         const timer = setTimeout(() => {
           setDisplayedText(prev => prev + response.charAt(typingIndex));
           setTypingIndex(prev => prev + 1);
-        }, 30); // Her karakter için 30ms bekle
+        }, 30); // Wait 30ms for each character
         
         return () => clearTimeout(timer);
       } else {
@@ -30,19 +30,19 @@ export function ResponseCard({ response, isLoading }) {
     }
   }, [isTyping, response, typingIndex]);
 
-  // Ana konteyner stili - sabit yüksekliği korur
+  // Main container style - maintains fixed height
   const containerStyle = {
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
     padding: '10px 0',
-    minHeight: '180px', // Sabit minimum yükseklik
+    minHeight: '180px', // Fixed minimum height
     position: 'relative',
     height: '100%'
   };
   
-  // Yükleme göstergesi stili
+  // Loading indicator style
   const loadingStyle = {
     padding: '15px',
     borderRadius: '8px',
@@ -51,7 +51,7 @@ export function ResponseCard({ response, isLoading }) {
     height: '100px'
   };
   
-  // Yanıt konteyner stili
+  // Response container style
   const responseStyle = {
     padding: '15px 10px',
     color: '#fff',
@@ -60,10 +60,10 @@ export function ResponseCard({ response, isLoading }) {
     textAlign: 'left'
   };
   
-  // İçerik stili - sola yaslı, beyaz metin
+  // Content style - left-aligned, white text
   const contentStyle = {
     textAlign: 'left',
-    color: '#ffffff', // Beyaz metin
+    color: '#ffffff', // White text
     minHeight: '60px',
     maxHeight: '120px',
     overflowY: 'auto',
@@ -74,24 +74,24 @@ export function ResponseCard({ response, isLoading }) {
     lineHeight: '1.5'
   };
   
-  // "Answer:" kısmı için stil
+  // Style for the "Answer:" part
   const answerPrefix = {
-    color: '#ff0000', // Sadece "Answer:" kısmı kırmızı
+    color: '#ff0000', // Only the "Answer:" part is red
     fontWeight: 'bold',
     marginRight: '6px'
   };
   
-  // Cursor stili
+  // Cursor style
   const cursorStyle = {
     display: isTyping ? 'inline-block' : 'none',
     width: '2px',
     height: '16px',
-    backgroundColor: '#ffffff', // Beyaz imlec
+    backgroundColor: '#ffffff', // White cursor
     marginLeft: '2px',
     animation: 'blink 1s step-end infinite'
   };
   
-  // Yer tutucu stili
+  // Placeholder style
   const placeholderStyle = {
     textAlign: 'center',
     color: '#444',
@@ -121,7 +121,7 @@ export function ResponseCard({ response, isLoading }) {
     return (
       <div style={containerStyle}>
         <p style={placeholderStyle}>
-          Sonuçlar burada görünecek
+          Results will appear here
         </p>
       </div>
     );

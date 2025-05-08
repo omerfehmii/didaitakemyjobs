@@ -101,7 +101,7 @@ export function JobForm({ onSubmit }) {
     marginTop: '5px'
   };
 
-  // İkonlar için stiller
+  // Styles for icons
   const iconStyle = {
     width: '20px',
     height: '20px',
@@ -110,7 +110,7 @@ export function JobForm({ onSubmit }) {
     zIndex: 2
   };
   
-  // Loading spinner ikonu
+  // Loading spinner icon
   const LoadingIcon = () => (
     <svg style={{...iconStyle, animation: 'rotation 1s linear infinite'}} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.2)"></circle>
@@ -118,7 +118,7 @@ export function JobForm({ onSubmit }) {
     </svg>
   );
   
-  // Search ikonu
+  // Search icon
   const SearchIcon = () => (
     <svg style={iconStyle} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="11" cy="11" r="8"></circle>
@@ -131,7 +131,7 @@ export function JobForm({ onSubmit }) {
       <form onSubmit={handleSubmit} style={formStyle}>
         <div style={inputContainerStyle}>
           <label htmlFor="job" style={labelStyle}>
-            Mesleğiniz nedir?
+            What is your profession?
           </label>
           
           <input
@@ -151,7 +151,7 @@ export function JobForm({ onSubmit }) {
               e.target.style.borderColor = '#222';
               e.target.style.boxShadow = 'none';
             }}
-            placeholder="Örn: Grafik Tasarımcı, Yazılım Geliştirici..."
+            placeholder="E.g.: Graphic Designer, Software Developer..."
             style={fixedInputStyle}
             disabled={isLoading}
             className="job-input"
@@ -170,7 +170,7 @@ export function JobForm({ onSubmit }) {
             className="submit-button"
           >
             {isLoading ? <LoadingIcon /> : <SearchIcon />}
-            {isLoading ? "SORGULANIYOR..." : "AI BENİM İŞİMİ ALDI MI?"}
+            {isLoading ? "CHECKING..." : "DID AI TAKE MY JOB?"}
           </button>
         </div>
       </form>

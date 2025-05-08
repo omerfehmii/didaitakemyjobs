@@ -13,10 +13,10 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [pageLoaded, setPageLoaded] = useState(false);
 
-  // Sayfa yüklendiğinde boyutları sabitlemek için
+  // To fix the dimensions when the page is loaded
   useEffect(() => {
-    // Sayfa yüklendikten sonra 200ms bekleyip işaretleyelim
-    // Bu Spline ve diğer kaynakların yüklenmesi için zaman tanır
+    // Wait 200ms after page load to mark as loaded
+    // This gives time for Spline and other resources to load
     const timer = setTimeout(() => {
       setPageLoaded(true);
     }, 500);
@@ -25,17 +25,17 @@ function App() {
 
   const handleJobSubmit = async (job) => {
     setIsLoading(true);
-    console.log('Job submit başladı:', job);
+    console.log('Job submit started:', job);
     try {
-      console.log('AI yanıtı isteniyor...');
+      console.log('Requesting AI response...');
       const aiResponse = await checkJobWithAI(job);
-      console.log('AI yanıtı alındı:', aiResponse);
+      console.log('AI response received:', aiResponse);
       setResponse(aiResponse);
-      return Promise.resolve(); // Promise döndürüldüğünden emin ol
+      return Promise.resolve(); // Make sure a Promise is returned
     } catch (error) {
-      console.error('AI yanıt hatası:', error);
-      setResponse('Üzgünüm, AI ile iletişim kurarken bir sorun oluştu.');
-      return Promise.reject(error); // Hata durumunda da Promise döndür
+      console.error('AI response error:', error);
+      setResponse('Sorry, there was a problem communicating with the AI.');
+      return Promise.reject(error); // Return a Promise in error case too
     } finally {
       setIsLoading(false);
     }
@@ -66,7 +66,7 @@ function App() {
     backgroundColor: "#000"
   };
 
-  // Yükleme işlemi için ekran
+  // Loading screen
   const loadingContainer = {
     opacity: pageLoaded ? 0 : 1,
     position: pageLoaded ? 'absolute' : 'relative',
@@ -83,7 +83,7 @@ function App() {
     pointerEvents: pageLoaded ? 'none' : 'auto'
   };
 
-  // Ana içerik için
+  // Main content
   const mainContent = {
     opacity: pageLoaded ? 1 : 0,
     transition: 'opacity 0.3s ease-in-out'
@@ -91,27 +91,27 @@ function App() {
 
   return (
     <div style={pageStyles}>
-      {/* Yükleme göstergesi */}
+      {/* Loading indicator */}
       <div style={loadingContainer}>
         <div className="loader"></div>
       </div>
       
-      {/* Ana içerik - sadece yüklendikten sonra göster */}
+      {/* Main content - only show after loading */}
       <div style={mainContent}>
-        {/* Lazer pointer efekti */}
+        {/* Laser pointer effect */}
         <LaserPointer />
         
         <div style={containerStyles}>
-          {/* Başlık */}
+          {/* Title */}
           <div style={{textAlign: "center", marginBottom: "20px", height: "40px"}}>
             <h1 style={{fontSize: "24px", color: "#ffffff", fontWeight: "bold"}}>
-              <TypeWriter strings={["Mesleğinizi yazın, AI sizin yerinizi alıp almadığını söylesin!", "AI İşimi Aldı mı?", "Geleceğe hoş geldiniz!"]} />
+              <TypeWriter strings={["Enter your job, and the AI will tell you if it's taking your place!", "Did AI Take My Job?", "Welcome to the future!"]} />
             </h1>
           </div>
           
-          {/* İki sütunlu düzen */}
+          {/* Two-column layout */}
           <div style={{display: "flex", flexDirection: "row", gap: "20px", flexWrap: "wrap", minHeight: "500px"}}>
-            {/* Sol taraf - Form */}
+            {/* Left side - Form */}
             <div style={{
               flex: "1 1 350px", 
               minWidth: "350px", 
@@ -133,7 +133,7 @@ function App() {
                   display: "flex",
                   flexDirection: "column"
                 }}>
-                  {/* Başlık - sabit yükseklik */}
+                  {/* Title - fixed height */}
                   <div style={{
                     height: "70px", 
                     minHeight: "70px",
@@ -148,11 +148,11 @@ function App() {
                       textAlign: "center", 
                       color: "#ffffff"
                     }}>
-                      Mesleğinizi Kontrol Edin
+                      Check Your Profession
                     </h2>
                   </div>
                   
-                  {/* Form kısmı - sabit yükseklik */}
+                  {/* Form section - fixed height */}
                   <div style={{
                     height: "120px", 
                     minHeight: "120px", 
@@ -161,7 +161,7 @@ function App() {
                     <JobForm onSubmit={handleJobSubmit} />
                   </div>
                   
-                  {/* Yanıt kısmı - kalan alana yayılır */}
+                  {/* Response section - expands to fill remaining space */}
                   <div style={{
                     flex: "1",
                     minHeight: "200px",
@@ -175,7 +175,7 @@ function App() {
               </ShineBorder>
             </div>
             
-            {/* Sağ taraf - Görsel */}
+            {/* Right side - Visual */}
             <div style={{
               flex: "1 1 400px", 
               minWidth: "400px", 
@@ -195,22 +195,22 @@ function App() {
                   position: "relative",
                   overflow: "visible",
                 }}>
-                    {/* Robotun altındaki siyah gradyan */}
-                    <div style={{
-                      position: "absolute",
-                      bottom: 0,
-                      left: 0,
-                      width: "100%",
+                  {/* Black gradient under the robot */}
+                  <div style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    width: "100%",
                       height: "200px",
                       background: "linear-gradient(to top, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%)",
                       zIndex: 15,
-                      pointerEvents: "none"
-                    }}></div>
-
-                    <SplineScene 
-                      scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-                      className="w-full h-full"
-                    />
+                    pointerEvents: "none"
+                  }}></div>
+                  
+                  <SplineScene 
+                    scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+                    className="w-full h-full"
+                  />
                 </div>
               </ShineBorder>
             </div>
@@ -218,7 +218,7 @@ function App() {
         </div>
 
         <div style={footerStyles}>
-          <p>© {new Date().getFullYear()} AI İşimi Aldı mı? | Tamamen eğlence amaçlıdır</p>
+          <p>© {new Date().getFullYear()} Did AI Take My Job? | For entertainment purposes only</p>
         </div>
       </div>
     </div>
