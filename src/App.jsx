@@ -1,66 +1,26 @@
-import { useState, useEffect, lazy, Suspense } from 'react'
+import { useState, useEffect } from 'react'
 import { JobForm } from './components/JobForm'
 import { ResponseCard } from './components/ResponseCard'
 import { checkJobWithAI } from './services/aiService'
-// Lazy load the SplineScene component
-const SplineScene = lazy(() => import('./components/ui/splite').then(module => ({ default: module.SplineScene })))
+import { SplineScene } from './components/ui/splite'
 import { TypeWriter } from './components/TypeWriter'
 import { ShineBorder } from './components/ShineBorder'
 import LaserPointer from './components/LaserPointer'
 import './App.css'
 
-// Preload the 3D model assets
-const preloadSplineAssets = () => {
-  // Create a hidden iframe to preload the Spline scene
-  const preloader = document.createElement('link');
-  preloader.rel = 'preload';
-  preloader.href = 'https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode';
-  preloader.as = 'fetch';
-  preloader.crossOrigin = 'anonymous';
-  document.head.appendChild(preloader);
-  
-  // Also preload the static preview image
-  const imagePreloader = document.createElement('link');
-  imagePreloader.rel = 'preload';
-  imagePreloader.href = 'https://prod.spline.design/kZDDjO5HuC9GJUM2/preview.png';
-  imagePreloader.as = 'image';
-  document.head.appendChild(imagePreloader);
-
-  return () => {
-    document.head.removeChild(preloader);
-    document.head.removeChild(imagePreloader);
-  };
-};
-
 function App() {
   const [response, setResponse] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [pageLoaded, setPageLoaded] = useState(false);
-  const [splineVisible, setSplineVisible] = useState(false);
 
   // To fix the dimensions when the page is loaded
   useEffect(() => {
-    // Preload the 3D assets in the background
-    const cleanupPreloader = preloadSplineAssets();
-    
     // Wait 200ms after page load to mark as loaded
     // This gives time for Spline and other resources to load
     const timer = setTimeout(() => {
       setPageLoaded(true);
-      
-      // Delay showing the 3D model until after the page transition
-      // to ensure smooth loading
-      const splineTimer = setTimeout(() => {
-        setSplineVisible(true);
-      }, 300);
-      
-      return () => clearTimeout(splineTimer);
     }, 500);
-    
-    return () => {
-      clearTimeout(timer);
-      cleanupPreloader();
-    };
+    return () => clearTimeout(timer);
   }, []);
 
   const handleJobSubmit = async (job) => {
@@ -241,44 +201,16 @@ function App() {
                     bottom: 0,
                     left: 0,
                     width: "100%",
-                    height: "200px",
-                    background: "linear-gradient(to top, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%)",
-                    zIndex: 15,
+                      height: "200px",
+                      background: "linear-gradient(to top, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%)",
+                      zIndex: 15,
                     pointerEvents: "none"
                   }}></div>
                   
-                  {/* Only render the 3D model when ready */}
-                  {splineVisible ? (
-                    <Suspense fallback={
-                      <div 
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          backgroundSize: 'contain',
-                          backgroundRepeat: 'no-repeat',
-                          backgroundPosition: 'center',
-                          backgroundImage: 'url(https://prod.spline.design/kZDDjO5HuC9GJUM2/preview.png)'
-                        }}
-                      />
-                    }>
-                      <SplineScene 
-                        scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-                        className="w-full h-full"
-                      />
-                    </Suspense>
-                  ) : (
-                    <div 
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        backgroundSize: 'contain',
-                        backgroundRepeat: 'no-repeat',
-                        backgroundPosition: 'center',
-                        backgroundImage: 'url(https://prod.spline.design/kZDDjO5HuC9GJUM2/preview.png)',
-                        opacity: 0.7
-                      }}
-                    />
-                  )}
+                  <SplineScene 
+                    scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+                    className="w-full h-full"
+                  />
                 </div>
               </ShineBorder>
             </div>
