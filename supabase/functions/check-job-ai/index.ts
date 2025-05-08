@@ -8,6 +8,7 @@ interface RequestParams {
 
 const RATE_LIMIT_MAX_REQUESTS = 20; // Maximum allowed requests per hour
 const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour (in milliseconds)
+const MAX_JOB_LENGTH = 50; // Maximum job title length
 
 // Helper function to initialize the Supabase client
 function getSupabaseClient(req: Request): SupabaseClient {
@@ -102,6 +103,9 @@ async function askOpenAI(job: string) {
       throw new Error("OPENAI_API_KEY environment variable is not set");
     }
 
+    // Truncate job title if it's too long to save tokens
+    const truncatedJob = job.length > MAX_JOB_LENGTH ? job.substring(0, MAX_JOB_LENGTH) : job;
+
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -117,10 +121,10 @@ async function askOpenAI(job: string) {
           },
           {
             role: "user",
-            content: `My profession: ${job}`
+            content: `My profession: ${truncatedJob}`
           }
         ],
-        max_tokens: 150,
+        max_tokens: 100, // Reduced from 150 to save tokens
         temperature: 0.8
       })
     });
@@ -191,8 +195,6 @@ serve(async (req: Request) => {
     }
 
     // Get the IP address of the requester
-    // In Deno Deploy, the 'x-forwarded-for' header typically contains the client's IP.
-    // In local tests, this header might not be present, in which case 'hostname' can be used (but this won't be the real IP).
     const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0].trim() || 
                      req.headers.get("fly-client-ip") || // For Fly.io
                      req.headers.get("cf-connecting-ip") || // For Cloudflare
@@ -219,13 +221,19 @@ serve(async (req: Request) => {
 
     // Get request body
     const body: RequestParams = await req.json();
-    const { job } = body;
+    let { job } = body;
 
     if (!job || typeof job !== 'string') {
       return new Response(
         JSON.stringify({ error: 'Job parameter is required and must be a string' }),
         { headers, status: 400 }
       );
+    }
+
+    // Sanitize and truncate job title
+    job = job.trim();
+    if (job.length > MAX_JOB_LENGTH) {
+      job = job.substring(0, MAX_JOB_LENGTH);
     }
 
     let response;

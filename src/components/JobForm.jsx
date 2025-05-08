@@ -4,6 +4,7 @@ export function JobForm({ onSubmit }) {
   const [job, setJob] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const inputRef = useRef(null);
+  const MAX_LENGTH = 50; // Maximum character limit for input
   
   useEffect(() => {
     return () => {
@@ -39,9 +40,12 @@ export function JobForm({ onSubmit }) {
   };
 
   const handleChange = (e) => {
-    setJob(e.target.value);
-    e.target.style.backgroundColor = '#000';
-    e.target.style.color = '#fff';
+    // Only update if we're below the maximum length
+    if (e.target.value.length <= MAX_LENGTH) {
+      setJob(e.target.value);
+      e.target.style.backgroundColor = '#000';
+      e.target.style.color = '#fff';
+    }
   };
 
   const containerStyle = {
@@ -99,6 +103,13 @@ export function JobForm({ onSubmit }) {
     textAlign: 'center',
     height: '40px',
     marginTop: '5px'
+  };
+
+  const characterCountStyle = {
+    color: job.length >= MAX_LENGTH * 0.9 ? '#ff4040' : '#666',
+    fontSize: '11px',
+    textAlign: 'right',
+    marginTop: '2px'
   };
 
   // Styles for icons
@@ -160,7 +171,11 @@ export function JobForm({ onSubmit }) {
             autoCapitalize="off"
             spellCheck="false"
             data-form-type="other"
+            maxLength={MAX_LENGTH}
           />
+          <div style={characterCountStyle}>
+            {job.length}/{MAX_LENGTH}
+          </div>
         </div>
         
         <div style={buttonContainerStyle}>
